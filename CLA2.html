@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitLife - Your Fitness Journey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+        }
+
+        nav {
+            background: #333;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+        }
+
+        section {
+            padding: 4rem 2rem;
+        }
+
+        #home {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1600') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #ff3333;
+        }
+
+        .workout-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .workout-card {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .workout-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .workout-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .workout-details {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .workout-details ul {
+            list-style-position: inside;
+            margin: 1rem 0;
+            text-align: left;
+        }
+
+        .workout-details li {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background: #f9f9f9;
+            border-radius: 3px;
+        }
+
+        .nutrition-tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tip {
+            background: #f4f4f4;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .calculator-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f4f4f4;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            background: #ff4d4d;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #ff3333;
+        }
+
+        #result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 5px;
+            display: none;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">FitLife</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#workouts">Workouts</a></li>
+            <li><a href="#nutrition">Nutrition</a></li>
+            <li><a href="#calculator">BMI Calculator</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <div class="hero">
+            <h1>Transform Your Life</h1>
+            <p>Start your fitness journey today with our expert-designed workout plans</p>
+            <button class="cta-button">Get Started</button>
+        </div>
+    </section>
+
+    <section id="workouts">
+        <h2>Workout Plans</h2>
+        <div class="workout-grid">
+            <div class="workout-card">
+                <img src="https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3?w=500" alt="Cardio">
+                <h3>Cardio Blast</h3>
+                <p>30-minute high-intensity cardio workout</p>
+                <div class="workout-details">
+                    <h4>Exercises:</h4>
+                    <ul>
+                        <li>Jump Rope (5 mins)</li>
+                        <li>High Knees (3 mins)</li>
+                        <li>Burpees (2 mins)</li>
+                        <li>Mountain Climbers (3 mins)</li>
+                        <li>Jumping Jacks (3 mins)</li>
+                        <li>Sprint Intervals (5 mins)</li>
+                        <li>Cool Down (5 mins)</li>
+                    </ul>
+                    <button class="detail-btn">View Details</button>
+                </div>
+            </div>
+            <div class="workout-card">
+                <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=500" alt="Strength">
+                <h3>Strength Training</h3>
+                <p>Full-body strength workout</p>
+                <div class="workout-details">
+                    <h4>Exercises:</h4>
+                    <ul>
+                        <li>Push-ups (3 sets x 12 reps)</li>
+                        <li>Squats (4 sets x 15 reps)</li>
+                        <li>Dumbbell Rows (3 sets x 12 reps)</li>
+                        <li>Lunges (3 sets x 10 each leg)</li>
+                        <li>Plank Hold (3 x 45 seconds)</li>
+                        <li>Deadlifts (3 sets x 10 reps)</li>
+                    </ul>
+                    <button class="detail-btn">View Details</button>
+                </div>
+            </div>
+            <div class="workout-card">
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500" alt="Yoga">
+                <h3>Yoga Flow</h3>
+                <p>Relaxing yoga session for flexibility</p>
+                <div class="workout-details">
+                    <h4>Poses:</h4>
+                    <ul>
+                        <li>Sun Salutation (10 mins)</li>
+                        <li>Warrior Poses (8 mins)</li>
+                        <li>Downward Dog (5 mins)</li>
+                        <li>Child's Pose (5 mins)</li>
+                        <li>Cat-Cow Stretch (5 mins)</li>
+                        <li>Savasana (7 mins)</li>
+                    </ul>
+                    <button class="detail-btn">View Details</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="nutrition">
+        <h2>Nutrition Tips</h2>
+        <div class="nutrition-tips">
+            <div class="tip">
+                <h3>Balanced Diet</h3>
+                <p>Learn about macro and micronutrients for optimal health. Focus on whole foods, lean proteins, and plenty of vegetables.</p>
+            </div>
+            <div class="tip">
+                <h3>Meal Planning</h3>
+                <p>Get tips for effective meal preparation and planning. Prepare your meals in advance to stay on track with your fitness goals.</p>
+            </div>
+            <div class="tip">
+                <h3>Hydration</h3>
+                <p>Stay hydrated throughout the day. Aim for 8-10 glasses of water daily to maintain optimal performance.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator">
+        <h2>BMI Calculator</h2>
+        <div class="calculator-container">
+            <div class="input-group">
+                <label for="weight">Weight (kg):</label>
+                <input type="number" id="weight" placeholder="Enter weight">
+            </div>
+            <div class="input-group">
+                <label for="height">Height (cm):</label>
+                <input type="number" id="height" placeholder="Enter height">
+            </div>
+            <button onclick="calculateBMI()">Calculate BMI</button>
+            <div id="result"></div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 FitLife. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function calculateBMI() {
+            const weight = document.getElementById('weight').value;
+            const height = document.getElementById('height').value / 100;
+            const resultDiv = document.getElementById('result');
+
+            if (weight && height) {
+                const bmi = (weight / (height * height)).toFixed(1);
+                let category = '';
+
+                if (bmi < 18.5) {
+                    category = 'Underweight';
+                } else if (bmi >= 18.5 && bmi < 25) {
+                    category = 'Normal weight';
+                } else if (bmi >= 25 && bmi < 30) {
+                    category = 'Overweight';
+                } else {
+                    category = 'Obese';
+                }
+
+                resultDiv.innerHTML = `Your BMI is ${bmi} (${category})`;
+                resultDiv.style.display = 'block';
+            } else {
+                alert('Please enter both weight and height');
+            }
+        }
+
+        document.querySelectorAll('.detail-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const details = this.parentElement;
+                if(details.style.display === 'none' || !details.style.display) {
+                    details.style.display = 'block';
+                    this.textContent = 'Hide Details';
+                } else {
+                    details.style.display = 'none';
+                    this.textContent = 'View Details';
+                }
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
